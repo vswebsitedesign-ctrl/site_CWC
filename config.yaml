@@ -1,0 +1,23 @@
+baseurl: ''
+description: Fast, professional, and eco-friendly property clearance services across
+  Cornwall.
+exclude:
+- Gemfile
+- Gemfile.lock
+- README.md
+- reports/
+- CWC_CTR_Report.json
+- CWC_master_report.json
+- '*.log'
+- jekyll-serve.log
+include:
+- _pages
+lang: en-GB
+markdown: kramdown
+permalink: pretty
+plugins:
+- jekyll-sitemap
+primary_phone: 07931 476 744
+site_name: CWC
+title: Cornwall Waste Clearance
+url: https://cornwallwasteclearance.co.uk

@@ -1,0 +1,30 @@
+{% assign total_sets = site.data.image_sets.sets | size %}
+{% assign slug = page.slug | default: page.permalink %}
+{% assign char_sum = 0 %}
+{% for char in slug %}
+  {% assign char_sum = char_sum | plus: char.size %}
+{% endfor %}
+{% assign service_slug = page.permalink | split: "/" | first | split: "-clearance" | first %}
+{% assign offset = 0 %}
+{% if page.permalink contains "rubbish-clearance" %}{% assign offset = 2 %}
+{% elsif page.permalink contains "garden-clearance" %}{% assign offset = 4 %}
+{% elsif page.permalink contains "attic-clearance" %}{% assign offset = 6 %}
+{% elsif page.permalink contains "garage-shed-clearance" %}{% assign offset = 8 %}
+{% elsif page.permalink contains "hoarder-clearance" %}{% assign offset = 10 %}
+{% elsif page.permalink contains "bereavement-probate-clearance" %}{% assign offset = 1 %}
+{% else %}{% assign offset = 0 %}{% endif %}
+{% assign slug_chars = page.slug | split: "" %}
+{% assign char_sum = 0 %}
+{% for c in slug_chars %}{% assign char_sum = char_sum | plus: c.size %}{% endfor %}
+{% assign set_index = char_sum | plus: offset | modulo: total_sets %}
+{% assign img = site.data.image_sets.sets[set_index] %}
+<div class="container" style="padding:0 0 8px 0"><div class="before-after-gallery">
+  <div class="before-after-item">
+    <img src="/assets/images/{{ img.before }}" alt="{{ img.alt_before }}" loading="lazy" />
+    <span class="before-after-label">Before</span>
+  </div>
+  <div class="before-after-item">
+    <img src="/assets/images/{{ img.after }}" alt="{{ img.alt_after }}" loading="lazy" />
+    <span class="before-after-label">After</span>
+  </div>
+</div></div>
