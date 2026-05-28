@@ -1,11 +1,10 @@
-name: Build
+name: Build and Deploy
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,8 +16,12 @@ jobs:
           python-version: '3.x'
       - name: Build site
         run: python3 build.py
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-build
-          path: build/
+      - name: Deploy to Plesk
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H 217.154.45.205 >> ~/.ssh/known_hosts
+          rsync -avz --delete build/ root@217.154.45.205:/var/www/vhosts/cornwallwasteclearance.co.uk/httpdocs/
