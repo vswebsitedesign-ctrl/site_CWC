@@ -23,5 +23,5 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H 217.154.45.205 >> ~/.ssh/known_hosts
-          rsync -avz --delete build/ root@217.154.45.205:/var/www/vhosts/cornwallwasteclearance.co.uk/httpdocs/
+          ssh-keyscan -H 217.154.33.12 >> ~/.ssh/known_hosts
+          rsync -avz --delete build/ root@217.154.33.12:/var/www/vhosts/cornwallwasteclearance.co.uk/httpdocs/
